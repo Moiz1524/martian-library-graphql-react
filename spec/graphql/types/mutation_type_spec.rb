@@ -9,5 +9,9 @@ RSpec.describe Types::MutationType do
     it "should have registered add_item field" do
       expect(described_class).to have_a_field(:add_item)
     end
+
+    it "should have registered update_item field" do
+      expect(described_class).to have_a_field(:update_item)  
+    end 
   end
 end

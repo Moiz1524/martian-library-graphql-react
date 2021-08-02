@@ -48,7 +48,7 @@ RSpec.describe Mutations::AddItemMutation do
     end
 
     subject(:bad_result) do
-      MartianLibrarySchema.execute(mutation, context: { current_user: nil })
+      MartianLibrarySchema.execute(mutation, context: {})
     end
 
     it "should resolve the mutation and return response" do
@@ -56,9 +56,8 @@ RSpec.describe Mutations::AddItemMutation do
       expect(result.dig("data", "addItem", "item", "id")).not_to be_nil
     end
 
-    it "should detach current_user and test resolver response" do
-      # expect{ bad_result.dig("errors") }.match_array
+    it "should test resolver response when current_user is nil" do
+      expect(bad_result.to_h.dig('errors')[0]["message"]).to eq("You need to authenticate to perform this action")
     end
-    
   end
 end
